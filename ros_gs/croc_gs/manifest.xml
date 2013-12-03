@@ -1,0 +1,14 @@
+<package>
+  <description brief="croc_gs">
+	Ground staton for CROC ROBOT Contest 2013
+  </description>
+  <author>Mike Charikov</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/croc_gs</url>
+  <depend package="roscpp"/>
+  <depend package="rviz"/>
+  <export>
+    <rosdoc config="${prefix}/rosdoc.yaml"/>
+  </export>
+</package>

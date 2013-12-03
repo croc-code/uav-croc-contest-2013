@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- A ground plane -->
+    <include>
+      <uri>model://croc_parking_ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://croc_parking_range</uri>
+    </include>
+
+	
+    <include>
+      <uri>model://croc_flyer_v1</uri>
+    </include>
+
+	<include>
+      <uri>model://takeoff_marker</uri>
+    </include>
+
+
+	<include>
+      <uri>model://croc_parking_landing_marker</uri>
+    </include>
+
+
+  </world>
+</sdf>

@@ -1,0 +1,19 @@
+<package>
+  <description brief="croc_log">
+	Read from different topics and put it to csv-file for futher investigations
+  </description>
+  <author>Mike Charikov</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/croc_log</url>
+  <depend package="roscpp"/>
+  <depend package="croc_Pose3D"/>
+  <depend package="croc_command"/>
+  <depend package="cyphy_serial_driver"/>
+  <depend package="px_comm"/>
+
+
+
+</package>
+
+

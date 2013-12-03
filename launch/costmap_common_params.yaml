@@ -1,0 +1,10 @@
+obstacle_range: 25.0
+raytrace_range: 30.0
+robot_radius: 0.8
+inflation_radius: 3.0
+map_type: costmap
+
+observation_sources: scan
+
+scan: {sensor_frame: /laser, data_type: LaserScan, topic: /scan, marking: true, clearing: true}
+

@@ -1,0 +1,13 @@
+<package>
+  <description brief="Gazebo plugin to the PX4FLOW board.">
+  </description>
+  <author>Mike Charikov</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url></url>
+  <depend package="image_transport"/>
+  <depend package="px_comm"/>
+
+</package>
+
+

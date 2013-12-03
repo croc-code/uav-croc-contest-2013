@@ -1,0 +1,12 @@
+<package>
+  <description brief="cyphy_serial_driver">
+cyphy serial driver for mikrokopter.
+Simple test.
+  </description>
+  <author>Inkyu Sa</author>
+  <license>GPL</license>
+  <review status="experimental" notes="This is unstable and under active development."/>
+  <depend package="roscpp"/>
+  <depend package="sensor_msgs"/>
+  <depend package="control_toolbox"/>
+</package>

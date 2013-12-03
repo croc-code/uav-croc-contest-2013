@@ -1,0 +1,256 @@
+<launch>
+	 <!-- for params description see http://www.ros.org/wiki/hokuyo_node -->
+	 <node pkg="hokuyo_node" type="hokuyo_node" name="hokuyo_node">
+		<param name="port" value="/dev/ttyACM1"/>
+		<param name="skip" value="1"/>
+		<param name="cluster" value="1"/>
+		<param name="intensity" value="false"/>
+		<param name="min_ang" value="-2.2689"/>
+		<param name="max_ang" value="2.2689"/>
+		<param name="frame_id" value="/laser"/>
+	 </node>
+ 
+
+	<!-- for params description see http://www.ros.org/wiki/px4flow_node‎ -->
+    <node name="px4flow" pkg="px4flow_node" type="px4flow_node" respawn="true">
+		<param name="serial_port" value="/dev/ttyACM0"/>
+		<param name="baudrate" value="921600"/>
+	</node>
+
+	<node pkg="cyphy_serial_driver" type="MikoControl" name="MikoControl"> 
+		<param name="device" value="/dev/ttyUSB0"/>
+		<param name="frequency" value="50"/>
+		<param name="baud" value="57600"/>
+	</node> 
+
+
+	<node pkg="croc_Pose3D" type="croc_Pose3D" name="croc_Pose3D" output="screen">
+		<!-- Low Pass Filter factor for optic flow velocity estimation, less value means less -->
+		<param name="velocity_lpf_factor" value = "0.3"/> 
+		<!-- mode 0 - no handling 
+			 mode 1 - divide current value by 2, 3 or 4 depends on distance
+			 mode 2 - take pevious value   -->
+		<param name="hangout_handling_mode" value = "0"/>
+		<!-- min altitude when hangout handling works -->
+		<param name="hangout_handling_min_altitude" value = "100"/>								
+	</node>
+		
+
+	<node pkg="croc_command" type="croc_command" name="croc_command" output="screen">
+		<!-- enable node -->
+		<param name="enable" value="true"/>
+		<!-- enable horizontal stabilization -->
+		<param name="enable2DPose" value="true"/>
+		<!-- time in second to start engines -->		
+		<param name="starting_engine_period" value="5"/>
+
+		<!-- hover gas (constant which is added to pid value -->
+		<param name="hover" value="132"/> 
+		<!-- max throttle (never send throttle to controller higher than this) -->
+        <param name="maxthrottle" value="170"/>
+		<!-- mix throttle (never send throttle to controller lower than this) -->
+		<param name="minthrottle" value="90"/>
+
+		<!-- altitude of horizontal flight -->
+        <param name="flight_altitude" value="90"/>
+
+		<!-- maximum speed of landing in cm per sec -->
+		<param name="land_speed_goal_max" value="15"/>
+		<!-- minimum speed of landing in cm per sec -->
+		<param name="land_speed_goal_min" value="9"/>
+		<!-- altitude when maximum landing speed is turning on -->
+		<param name="land_height_for_turn_min_speed_on" value="60"/>
+
+		<!-- speed of taking off in cm per sec -->
+		<param name="takeoff_speed_goal" value="15"/>
+
+		<!-- altitude (in cm) when we assume that robot landed (distance between sonar and surface when quad is on the ground).
+             If it lower than sonar_deadzone - it doesnot take into account  -->
+		<param name="land_height" value="11"/>
+
+		<!-- sonar deadzone in cm -->
+		<param name="sonar_deadzone" value="31"/>
+	
+		<!-- Altitude PID gains -->
+		<param name="h_p_gain" value="0.17"/>  
+		<param name="h_i_gain" value="0.03"/> 
+        <param name="h_d_gain" value="0.12"/>  
+		<param name="h_i_max" value="35"/>
+		<param name="h_i_min" value="-35"/>
+
+		<!-- yaw/theta PID gains -->
+		<param name="t_p_gain" value="6.0"/>
+		<param name="t_i_gain" value="1.0"/>
+		<param name="t_d_gain" value="2.0"/>
+		<param name="t_i_max" value="2.0"/>
+		<param name="t_i_min" value="-2.0"/>
+
+		<!-- LIDAR -->
+
+		<!-- velocity goal PID gains -->
+		<param name="xy_vel_goal_p_gain" value="0.5"/> 
+		<param name="xy_vel_goal_i_gain" value="0.3"/>  
+		<param name="xy_vel_goal_d_gain" value="0.72"/> 
+		<param name="xy_vel_goal_i_max" value="0.5"/>
+		<param name="xy_vel_goal_i_min" value="-0.5"/> 
+		<!-- command (pithc\roll) PID gains -->
+		<param name="xy_p_gain" value="14.0"/>
+		<param name="xy_i_gain" value="0.0"/> 
+		<param name="xy_d_gain" value="0.0"/> 
+		<param name="xy_i_max" value="1.0"/>
+		<param name="xy_i_min" value="-1.0"/> 
+
+
+		<!-- max pitch command (in 0.1 degrees)-->
+		<param name="max_pitch" value="38.0"/>
+		<!-- max roll command (in 0.1 degrees)-->
+		<param name="max_roll" value="38.0"/>
+		<!-- max yaw command -->
+		<param name="max_yaw" value="6.0"/>
+		<!-- yaw command scale factor -->
+        <param name="yaw_scale" value="2.0"/>
+
+		<!-- max horizontal velocity -->
+		<param name="max_horizontal_velocity" value="1.0"/>
+	</node>
+
+	<node pkg="croc_log" type="croc_log" name="croc_log" output="screen">
+		<param name="filename" value="/home/mike/croc_log"/>
+	</node>
+
+
+  <!-- transforms -->
+  <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" 
+    args="0.0 0.0 0.0 1.57 0.0 0.0 /base_link /laser 10" /> 
+
+  <node pkg="tf" type="static_transform_publisher" name="world_to_odom" 
+    args="0.0 0.0 0.0 0.0 0.0 0.0 /world /odom 10" /> 
+
+
+  <!-- for params description see  http://www.ros.org/wiki/laser_scan_matcher -->
+  <node pkg="laser_scan_matcher" type="laser_scan_matcher_node" 
+    name="laser_scan_matcher_node">
+    <param name="max_iterations" value="20"/>
+    <param name="use_imu" value="false"/>
+    <param name="use_odom" value="false"/>
+    <param name="outliers_maxPerc" value="0.99"/> 
+    <param name="outliers_adaptive_order" value="0.99"/>
+    <param name="max_linear_correction" value="0.2"/> 
+  </node> 
+
+  <!-- NAVIGATION STACK -->
+ <!-- for params description see http://wiki.ros.org/navigation -->
+  <node name="map_server" pkg="map_server" type="map_server" args="/home/mike/ros/robot/launch/map.yaml" /> 
+  <node pkg="tf" type="static_transform_publisher" name="world_to_map" 
+    args="0.0 0.0 0.0 0.0 0.0 0.0 /world /map 10" />
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" launch-prefix="xterm -e">
+    <rosparam file="/home/mike/ros/robot/launch/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="/home/mike/ros/robot/launch/costmap_common_params.yaml" command="load" ns="local_costmap" /> 
+    <rosparam file="/home/mike/ros/robot/launch/local_costmap_params.yaml" command="load" /> 
+    <rosparam file="/home/mike/ros/robot/launch/global_costmap_params.yaml" command="load" />
+    <rosparam file="/home/mike/ros/robot/launch/base_local_planner_params.yaml" command="load" />
+    <param name="planner_patience" value="5"/>
+    <param name="controller_patience" value="5"/>
+    <param name="conservative_reset_dist" value="30"/>
+    <param name="planner_frequency" value="3.0"/>
+    <param name="recovery_behavior_enabled" value="true"/>
+  </node>
+  <!-- NAVIGATION STACK END  -->
+
+
+
+  <node name="croc_navi" pkg="croc_navi" type="croc_navi" output="screen"> 
+	<!-- turn on\off navigation -->
+	<param name="navigation_on" value="true"/>
+	<!-- turn on\off autoheading -->
+    <param name="auto_heading" value="false"/>
+	<!-- correct returning goal with distance to walls -->
+    <param name="return_based_on_walls" value="true"/>
+
+	<!-- maximum distance local goal -->
+	<param name="new_local_goal_distance" value="1.1"/>
+    <!-- distance to global goal when global goal is marked as reached -->
+	<param name="global_goal_reach_distance" value="0.3"/>
+
+	<!-- distance to local goal when autoheading turns off -->
+	<param name="do_not_turn_distance" value="0.2"/>
+	<!-- min theta error when quad stops moving and only turns to minimize theta error. only works if auto_heading is on.  -->
+	<param name="do_not_move_theta" value="0.785"/>
+
+	<!-- size of range -->
+    <param name="range_length" value="30"/>
+	<param name="range_width" value="9"/>
+ </node>
+
+  <node pkg="croc_CalcLandingPos" type = "croc_CalcLandingPos" name = "croc_CalcLandingPos">
+	<!-- camerea horizontal resolution in pixels -->
+    <param name="camHorRes" value="640" />
+	<!-- camerea vertical resolution in pixels -->
+    <param name="camVerRes" value="480" />
+	<!-- Camera horizontal field of view (radians) -->
+	<param name="camHorAngle" value="1.8007"/>
+	<!-- Camera vertical field of view (radians) -->
+	<param name="camVerAngle" value="1.5175"/>
+
+	<!-- Camera optical center coordinate in pixels -->
+	<param name="opticalCenterX" value="311"/>
+	<param name="opticalCenterY" value="273"/>
+  </node>
+
+
+ <node pkg="croc_detecting_mark_3" type="croc_detecting_mark_3"
+        name="croc_detecting_mark" output="screen" respawn="true">
+    <param name="frameWidth" value="640" />
+    <param name="frameHeight" value="480" />
+
+    <param name="videoTopic" value="/ros_camera_plugin_node/croc_image" />
+
+    <!-- 0 - file, 1- camera, 2 - topic -->
+    <param name="inputStream" value="1" />
+    <!--param name="videoFile" value="/home/user/Videos/capture08.08.2013_12.43.46.mpg" /-->
+    <param name="videoFile" value="/home/user/Videos/12-3-2-.mp4" />
+    <!--param name="videoFile" value="/home/user/Videos/VID-20130806-00024.MP4" /-->
+
+    <!-- divider between black/white for greyscale picture binarization -->
+    <param name="thresh" value="110" />
+    <!-- logical "1" for binarization, "0" allways == "0" -->
+    <param name="max_thresh" value="255" />
+
+    <!-- Thresholds for Canny detector -->
+    <param name="CannyThreshold" value="50" />
+    <param name="CannyMaxThreshold" value="60" />
+
+    <!-- Is distortion correction needed -->
+    <param name="correctImage" value="true" />
+    <param name="pathToCalibYaml" value="/home/mike/ros/robot/launch/out_camera_data.yml" />
+
+    <!-- ROI dimensions to look only under bumper -->
+    <param name="useROI" value="true" />
+    <param name="ROIx" value="0" />
+    <param name="ROIy" value="290" />
+    <param name="ROIw" value="640" />
+    <param name="ROIh" value="190" />
+
+    <!-- show video window -->
+    <param name="showVideo" value="false" />
+    <!-- Current max Log level to write to output: 0 - critical, 1 - warnings, 2 - info, 3 - debug -->
+    <param name="logLevel" value="1" />
+    <!-- Node cycle duration (not faster then), in Hz -->
+    <param name="cycleRate" value="20" />
+
+    <!-- HSV mode setup -->
+    <param name="useHSV" value="false" />
+    <param name="Hmax" value="50" />
+    <param name="Hmin" value="11" />
+    <param name="Smax" value="80" />
+    <param name="Smin" value="0" />
+    <param name="Vmax" value="191" />
+    <param name="Vmin" value="105" />
+
+    <param name="SendPreTarget" value="true" />
+
+  </node> 
+
+    
+</launch>
+

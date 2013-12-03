@@ -127,7 +127,7 @@ To build croc_gs in folder /ros_gs run following commands:
 ```shell
 rosdep install *
 rosmake *
-```shell
+```
 
 To run this node complete following commands:
 

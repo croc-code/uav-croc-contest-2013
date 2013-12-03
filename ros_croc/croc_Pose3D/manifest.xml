@@ -1,0 +1,18 @@
+<package>
+  <description brief="croc_Pose3D">
+
+     croc_Pose3D
+
+  </description>
+  <author>Mike Charikov</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/croc_Pose3D</url>
+  <depend package="roscpp"/>
+  <depend package="sensor_msgs"/>
+  <depend package="geometry_msgs"/>
+  <depend package="cyphy_serial_driver"/>
+
+</package>
+
+

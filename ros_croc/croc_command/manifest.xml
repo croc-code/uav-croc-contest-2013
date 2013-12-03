@@ -1,0 +1,18 @@
+<package>
+  <description brief="croc_command">
+
+     croc_command
+
+  </description>
+  <author>Mike Charikov</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/croc_command</url>
+  <depend package="roscpp"/>
+  <depend package="control_toolbox"/>
+  <depend package="croc_Pose3D"/>
+  <depend package="geometry_msgs"/>
+
+</package>
+
+

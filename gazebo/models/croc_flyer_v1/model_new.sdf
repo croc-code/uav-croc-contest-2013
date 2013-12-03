@@ -1,0 +1,813 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+	<model name="croc_flyer_v1">
+		<static>false</static>
+		<pose>0 0 0 0 0 0</pose>
+
+		<!-- MAIN ROUND PLATFORM -->
+    	<link name='center'>
+    		<pose>0 0 0.2 0 0 0</pose>
+			<inertial>
+		        <mass>0.2</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<cylinder>
+		    			<radius>0.09</radius>
+						<length>0.02</length>
+		      		</cylinder>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<transparency>0.0</transparency>
+				<material>
+					<ambient>0 0 0 0.5</ambient> 
+					<diffuse>0 0 0 0.5</diffuse> 
+					<specular>0 0 0 0.5</specular>
+					<emissive>0 0 0 0.5</emissive>
+				</material>
+				<geometry>
+					<cylinder>
+						<radius>0.09</radius>
+						<length>0.02</length>
+					</cylinder>
+				</geometry>
+			</visual>
+ 		</link>     
+
+	<link name='center_top'>
+    		<pose>0 0 0.25 0 0 0</pose>
+			<inertial>
+		        <mass>0.2</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<box>
+						<size>0.06 0.16 0.08</size>
+					</box>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<material>
+					<ambient>0.2 0.2 0.2 0.5</ambient> 
+					<diffuse>0.2 0.2 0.2 0.5</diffuse> 
+					<specular>0.2 0.2 0.2 0.5</specular>
+					<emissive>0.2 0.2 0.2 0.5</emissive>
+				</material>
+				<geometry>
+		    		<box>
+						<size>0.06 0.16 0.08</size>
+					</box>
+				</geometry>
+			</visual>
+ 		</link>     
+
+
+	<link name='center_bottom'>
+    		<pose>0 0 0.16 0 0 0</pose>
+			<inertial>
+		        <mass>0.7</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<box>
+						<size>0.12 0.12 0.06</size>
+					</box>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<material>
+					<ambient>0 0.1 0.2 0.5</ambient> 
+					<diffuse>0 0.1 0.2 0.5</diffuse> 
+					<specular>0 0.1 0.2 0.5</specular>
+					<emissive>0 0.1 0.2 0.5</emissive>
+				</material>
+				<geometry>
+		    		<box>
+						<size>0.12 0.12 0.06</size>
+					</box>
+				</geometry>
+			</visual>
+ 		</link>     
+
+
+		<joint name="center_top" type="revolute">
+			<child>center_top</child>
+			<parent>center</parent>
+			<axis>
+				<xyz>1 0 0</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>
+
+
+		<joint name="center_bottom" type="revolute">
+			<child>center_bottom</child>
+			<parent>center</parent>
+			<axis>
+				<xyz>1 0 0</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>
+
+
+
+		<!-- ARM N-S -->
+		<link name='arm_one'>
+    		<pose>0 0 0.2 0 0 0</pose>
+			<inertial>
+		        <mass>0.2</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<box>
+		    			<size>0.62 0.01 0.01</size>
+		      		</box>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<material>
+					<ambient>0 0 0 0.5</ambient> 
+					<diffuse>0 0 0 0.5</diffuse> 
+					<specular>0 0 0 0.5</specular>
+					<emissive>0 0 0 0.5</emissive>
+				</material>
+				<geometry>
+		    		<box>
+		    			<size>0.62 0.01 0.01</size>
+		      		</box>
+		    	</geometry>
+			</visual>
+ 		</link>
+ 
+		<!-- ARM E-W -->
+		<link name='arm_two'>
+    		<pose>0 0 0.2 0 0 0</pose>
+			<inertial>
+		        <mass>0.2</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<box>
+		    			<size>0.01 0.62 0.01</size>
+		      		</box>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<material>
+					<ambient>0 0 0 0.5</ambient> 
+					<diffuse>0 0 0 0.5</diffuse> 
+					<specular>0 0 0 0.5</specular>
+					<emissive>0 0 0 0.5</emissive>
+				</material>
+				<geometry>
+		    		<box>
+		    			<size>0.01 0.62 0.01</size>
+		      		</box>
+		    	</geometry>
+			</visual>
+ 		</link>
+
+		<!-- PROPELLERS -->
+		<link name='north_platform'>
+    		<pose>-0.31 0 0.2 0 0 0</pose>
+			<inertial>
+		        <mass>0.15</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<cylinder>
+		    			<radius>0.16</radius>
+						<length>0.02</length>
+		      		</cylinder>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<transparency>0.9</transparency>
+				<material>
+					<ambient>0 0 0 0.5</ambient> 
+					<diffuse>0 0 0 0.5</diffuse> 
+					<specular>0 0 0 0.5</specular>
+					<emissive>0 0 0 0.5</emissive>
+				</material>
+
+				<geometry>
+					<cylinder>
+						<radius>0.16</radius>
+						<length>0.02</length>
+					</cylinder>
+				</geometry>
+			</visual>
+ 		</link>     
+
+		<link name='south_platform'>
+    		<pose>0.31 0 0.2 0 0 0</pose>
+			<inertial>
+		        <mass>0.15</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<cylinder>
+		    			<radius>0.16</radius>
+						<length>0.02</length>
+		      		</cylinder>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<transparency>0.9</transparency>
+				<material>
+					<ambient>0 0 0 0.5</ambient> 
+					<diffuse>0 0 0 0.5</diffuse> 
+					<specular>0 0 0 0.5</specular>
+					<emissive>0 0 0 0.5</emissive>
+				</material>
+
+				<geometry>
+					<cylinder>
+						<radius>0.16</radius>
+						<length>0.02</length>
+					</cylinder>
+				</geometry>
+			</visual>
+ 		</link>     
+
+
+		<link name='east_platform'>
+    		<pose>0 0.31 0.2 0 0 0</pose>
+			<inertial>
+		        <mass>0.15</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<cylinder>
+		    			<radius>0.16</radius>
+						<length>0.02</length>
+		      		</cylinder>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<transparency>0.9</transparency>
+				<material>
+					<ambient>0 0 0 0.5</ambient> 
+					<diffuse>0 0 0 0.5</diffuse> 
+					<specular>0 0 0 0.5</specular>
+					<emissive>0 0 0 0.5</emissive>
+				</material>
+
+				<geometry>
+					<cylinder>
+						<radius>0.16</radius>
+						<length>0.02</length>
+					</cylinder>
+				</geometry>
+			</visual>
+ 		</link>     
+
+		<link name='west_platform'>
+    		<pose>0 -0.31 0.2 0 0 0</pose>
+			<inertial>
+		        <mass>0.15</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<cylinder>
+		    			<radius>0.16</radius>
+						<length>0.02</length>
+		      		</cylinder>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<transparency>0.9</transparency>
+				<material>
+					<ambient>0 0 0 0.5</ambient> 
+					<diffuse>0 0 0 0.5</diffuse> 
+					<specular>0 0 0 0.5</specular>
+					<emissive>0 0 0 0.5</emissive>
+				</material>
+
+				<geometry>
+					<cylinder>
+						<radius>0.16</radius>
+						<length>0.02</length>
+					</cylinder>
+				</geometry>
+			</visual>
+ 		</link>  
+
+		<!-- JOINTS -->
+
+		<joint name="north_joint" type="revolute">
+			<child>north_platform</child>
+			<parent>arm_one</parent>
+			<axis>
+				<xyz>1 0 0</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>
+
+		<joint name="south_joint" type="revolute">
+			<child>south_platform</child>
+			<parent>arm_one</parent>
+			<axis>
+				<xyz>1 0 0</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>
+
+		<joint name="east_joint" type="revolute">
+			<child>east_platform</child>
+			<parent>arm_two</parent>
+			<axis>
+				<xyz>0 1 0</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>
+
+		<joint name="west_joint" type="revolute">
+			<child>west_platform</child>
+			<parent>arm_two</parent>
+			<axis>
+				<xyz>0 1 0</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>
+
+		<joint name="arm_joint" type="revolute">
+			<child>arm_one</child>
+			<parent>arm_two</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>
+
+		<joint name="center_joint_one" type="revolute">
+			<child>arm_one</child>
+			<parent>center</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>
+
+		<joint name="center_joint_two" type="revolute">
+			<child>arm_two</child>
+			<parent>center</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>
+
+
+	<!-- LEGS -->
+
+		<link name='left_leg_one'>
+    		<pose>0.05 -0.1 0.1 -0.3 0 0</pose>
+			<inertial>
+		        <mass>0.01</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<box>
+		    			<size>0.005 0.005 0.201</size>
+		      		</box>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<material>
+					<ambient>0 0 0 0.5</ambient> 
+					<diffuse>0 0 0 0.5</diffuse> 
+					<specular>0 0 0 0.5</specular>
+					<emissive>0 0 0 0.5</emissive>
+				</material>
+				<geometry>
+		    		<box>
+		    			<size>0.005 0.005 0.201</size>
+		      		</box>
+		    	</geometry>
+			</visual>
+ 		</link>
+		<link name='left_leg_two'>
+    		<pose>-0.05 -0.1 0.1 -0.3 0 0</pose>
+			<inertial>
+		        <mass>0.01</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<box>
+		    			<size>0.005 0.005 0.201</size>
+		      		</box>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<material>
+					<ambient>0 0 0 0.5</ambient> 
+					<diffuse>0 0 0 0.5</diffuse> 
+					<specular>0 0 0 0.5</specular>
+					<emissive>0 0 0 0.5</emissive>
+				</material>
+				<geometry>
+		    		<box>
+		    			<size>0.005 0.005 0.201</size>
+		      		</box>
+		    	</geometry>
+			</visual>
+ 		</link>
+		<link name='left_row'>
+    		<pose>0.0 -0.13 0.005 0 0 0</pose>
+			<inertial>
+		        <mass>0.01</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<box>
+		    			<size>0.32 0.01 0.01</size>
+		      		</box>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<material>
+					<ambient>0 0 0 0.5</ambient> 
+					<diffuse>0 0 0 0.5</diffuse> 
+					<specular>0 0 0 0.5</specular>
+					<emissive>0 0 0 0.5</emissive>
+				</material>
+				<geometry>
+		    		<box>
+		    			<size>0.32 0.01 0.01</size>
+		      		</box>
+		    	</geometry>
+			</visual>
+ 		</link>
+
+
+	<link name='right_leg_one'>
+    		<pose>0.05 0.1 0.1 0.3 0 0</pose>
+			<inertial>
+		        <mass>0.01</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<box>
+		    			<size>0.005 0.005 0.201</size>
+		      		</box>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<material>
+					<ambient>0 0 0 0.5</ambient> 
+					<diffuse>0 0 0 0.5</diffuse> 
+					<specular>0 0 0 0.5</specular>
+					<emissive>0 0 0 0.5</emissive>
+				</material>
+				<geometry>
+		    		<box>
+		    			<size>0.005 0.005 0.201</size>
+		      		</box>
+		    	</geometry>
+			</visual>
+ 		</link>
+	<link name='right_leg_two'>
+    		<pose>-0.05 0.1 0.1 0.3 0 0</pose>
+			<inertial>
+		        <mass>0.01</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<box>
+		    			<size>0.005 0.005 0.201</size>
+		      		</box>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<material>
+					<ambient>0 0 0 0.5</ambient> 
+					<diffuse>0 0 0 0.5</diffuse> 
+					<specular>0 0 0 0.5</specular>
+					<emissive>0 0 0 0.5</emissive>
+				</material>
+				<geometry>
+		    		<box>
+		    			<size>0.005 0.005 0.201</size>
+		      		</box>
+		    	</geometry>
+			</visual>
+ 		</link>
+
+	<link name='right_row'>
+    		<pose>0.0 0.13 0.005 0 0 0</pose>
+			<inertial>
+		        <mass>0.01</mass>
+		    </inertial>
+			<collision name='collision'>
+		    	<geometry>
+		    		<box>
+		    			<size>0.32 0.01 0.01</size>
+		      		</box>
+		    	</geometry>
+      		</collision>
+
+			<visual name='visual'>
+				<material>
+					<ambient>0 0 0 0.5</ambient> 
+					<diffuse>0 0 0 0.5</diffuse> 
+					<specular>0 0 0 0.5</specular>
+					<emissive>0 0 0 0.5</emissive>
+				</material>
+				<geometry>
+		    		<box>
+		    			<size>0.32 0.01 0.01</size>
+		      		</box>
+		    	</geometry>
+			</visual>
+ 		</link>
+
+
+	<joint name="left_leg_center_one" type="revolute">
+			<child>left_leg_one</child>
+			<parent>center</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>
+
+	<joint name="left_leg_center_two" type="revolute">
+			<child>left_leg_two</child>
+			<parent>center</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>	
+
+	<joint name="left_leg_row_one" type="revolute">
+			<child>left_row</child>
+			<parent>left_leg_one</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>
+
+	<joint name="left_leg_row_two" type="revolute">
+			<child>left_row</child>
+			<parent>left_leg_two</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>	
+
+
+	<joint name="right_leg_center_one" type="revolute">
+			<child>right_leg_one</child>
+			<parent>center</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>
+
+	<joint name="right_leg_center_two" type="revolute">
+			<child>right_leg_two</child>
+			<parent>center</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>	
+
+<joint name="right_leg_row_one" type="revolute">
+			<child>right_row</child>
+			<parent>right_leg_one</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>
+
+	<joint name="right_leg_row_two" type="revolute">
+			<child>right_row</child>
+			<parent>right_leg_two</parent>
+			<axis>
+				<xyz>0 0 1</xyz>
+				<limit>
+					<upper>0</upper>
+					<lower>0</lower>
+				</limit>
+			</axis>
+		</joint>	
+
+
+
+
+
+	<!-- HOKUYO -->
+    <link name='lidar'>
+		<pose>0 0 0.34 0 0 1.57</pose>
+	  <inertial>
+        <mass>0.25</mass>
+      </inertial>
+		<collision name='collision'>
+	    	<geometry>
+				<box>
+	    			<size>0.06 0.06 0.1</size>
+	      		</box>
+	    	</geometry>
+  		</collision>
+
+		<visual name='visual'>
+				<pose>0 0 -0.01 0 0 1.57</pose>
+				<material>
+					<ambient>0 0 0 0.5</ambient> 
+					<diffuse>0 0 0 0.5</diffuse> 
+					<specular>0 0 0 0.5</specular>
+					<emissive>0 0 0 0.5</emissive>
+				</material>
+			<geometry>
+				<box>
+	    			<size>0.06 0.06 0.08</size>
+	      		</box>
+	    	</geometry>
+		</visual>
+
+		<visual name='visual_red'>
+			<pose>0 0 0.04 0 0 1.57</pose>
+				<material>
+					<ambient>0.9 0.5 0.15 0.5</ambient> 
+					<diffuse>0.9 0.5 0.15 0.5</diffuse> 
+					<specular>0.9 0.5 0.15 0.5</specular>
+					<emissive>0.9 0.5 0.15 0.5</emissive>
+				</material>
+			<geometry>
+				<box>
+	    			<size>0.06 0.06 0.02</size>
+	      		</box>
+	    	</geometry>
+		</visual>
+
+		<sensor name="laser" type="ray">
+			<pose>0 0 0.12 0 0 0</pose>
+			<ray>
+			  <scan>
+				<horizontal>
+				  <samples>1040</samples>
+				  <resolution>1</resolution>
+				  <min_angle>-2.26889</min_angle>
+				  <max_angle>2.268899</max_angle>
+				</horizontal>
+			  </scan>
+			  <range>
+				<min>0.08</min>
+				<max>15</max>
+				<resolution>1</resolution>
+			  </range>
+			</ray>
+			<always_on>1</always_on>
+			<update_rate>10</update_rate>
+			<visualize>true</visualize>
+		</sensor>
+	</link>
+
+	<joint name="lidar_joint" type="revolute">
+	  <child>lidar</child>
+	  <parent>center_top</parent>
+	  <axis>
+		<xyz>0 0 1</xyz>
+		<limit>
+		  <upper>0</upper>
+		  <lower>0</lower>
+		</limit>
+	  </axis>
+	</joint> 
+
+
+<!-- CAMERA -->
+	<link name='camera_row'>
+	  <pose>0.1 0 0.13 0 0 0</pose>
+      <inertial>
+		<mass>0.05</mass>
+      </inertial>
+      <collision name='collision'>
+        <geometry>
+          <box>
+	    	 <size>0.02 0.1 0.04</size>
+	      </box>
+        </geometry>
+      </collision>
+	  <visual name='visual'>
+        <geometry>
+		  <box>
+	    	 <size>0.02 0.1 0.04</size>
+	      </box>
+		</geometry>
+      </visual>
+     <sensor name="camera_sensor" type="camera">
+		<always_on>true</always_on>
+		<pose>0.1 0 0 0 0 0</pose>
+        <topic>/mike/robot_camera</topic>
+		<camera name="mike_camera">
+			<horizontal_fov>2.09</horizontal_fov>
+            <image>
+				<width>480</width>
+				<height>320</height>
+				<format>R8G8B8</format>
+			</image>
+			<clip>
+				<near>0.01</near>
+				<far>40</far>
+			</clip>
+		</camera>
+  		<plugin name="ros_based_plugin" filename="libros_camera_plugin.so"/>
+      </sensor> 
+    </link>
+
+	
+	<joint name="camera_joint" type="revolute">
+	  <child>camera_row</child>
+	  <parent>center</parent>
+	  <axis>
+		<xyz>0 0 1</xyz>
+		<limit>
+		  <upper>0</upper>
+		  <lower>0</lower>
+		</limit>
+	  </axis>
+	</joint> 
+	
+
+
+
+   <plugin name="ros_flyer_plugin" filename="libros_flyer_plugin.so"/>
+   <plugin name="ros_ultrasonic_plugin" filename="libros_ultrasonic_plugin.so"/>
+   <plugin name="ros_lidar_plugin" filename="libros_lidar_plugin.so"/>
+
+
+  </model>
+  
+</sdf>
+
